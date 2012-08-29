@@ -17,6 +17,7 @@
 		
 		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.xml" tofile="${bp_targetdir}/babiooncaption.xml" overwrite="true"/>
 		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.php" tofile="${bp_targetdir}/babiooncaption.php" overwrite="true"/>
+		<copy file="${codebase}/plugins/content/babiooncaption/index.html" tofile="${bp_targetdir}/index.html" overwrite="true"/>
 		<copy todir="${bp_targetdir}" overwrite="true">
 			<fileset dir="${codebase}/administrator" >
 				<include name="language/**" />
