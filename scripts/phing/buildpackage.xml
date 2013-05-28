@@ -2,30 +2,53 @@
 <project name="buildpackage" default="do">
 
 	<target name="do">
-	
-		<echo msg="************************************" />
-		<echo msg="* Build-Package: babioon-caption   *" />
-		<echo msg="************************************" />
-		
+		<!-- import task -->
+		<import file="${project.basedir}/../../../_4all/tasks.xml"/>
+
 		<property name="filebase" value="${project.basedir}/../../.." override="false"/>
-		<property name="codebase" value="${filebase}/babioon-caption/code" override="true"/>
-		
-        <mkdir dir="${filebase}/build" />
-		<mkdir dir="${filebase}/build/babiooncaption" />
-		
-		<property name="bp_targetdir" value="${filebase}/build/babiooncaption" />
-		
-		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.xml" tofile="${bp_targetdir}/babiooncaption.xml" overwrite="true"/>
-		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.php" tofile="${bp_targetdir}/babiooncaption.php" overwrite="true"/>
-		<copy file="${codebase}/plugins/content/babiooncaption/index.html" tofile="${bp_targetdir}/index.html" overwrite="true"/>
-		<copy todir="${bp_targetdir}" overwrite="true">
-			<fileset dir="${codebase}/administrator" >
+		<property name="pname"    value="babioon-caption" override="true"/>
+		<property name="codebase" value="${filebase}/${pname}/code" override="true"/>
+
+
+		<getversion propertyname="vn" filename="${codebase}/plugins/content/babiooncaption/babiooncaption.xml" />
+
+		<echo>Versionnumber: ${vn}</echo>
+
+		<echo msg="**************************************" />
+		<echo msg="* Build-Package: babioon-caption     *" />
+		<echo msg="**************************************" />
+
+		<property name="bp_targetdir" value="babiooncaption" />
+
+        <property name="builddir" value="${filebase}/build" />
+        <mkdir dir="${builddir}" />
+
+		<property name="targetdir" value="${filebase}/build/${bp_targetdir}" />
+
+		<!-- remove the dir first -->
+		<delete  dir="${targetdir}" failonerror="false" quiet="true"/>
+		<mkdir dir="${targetdir}" />
+
+		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.xml" tofile="${targetdir}/babiooncaption.xml" overwrite="true"/>
+		<copy file="${codebase}/plugins/content/babiooncaption/babiooncaption.php" tofile="${targetdir}/babiooncaption.php" overwrite="true"/>
+		<copy todir="${targetdir}" overwrite="true">
+			<fileset dir="${codebase}/plugins/content/babiooncaption" >
 				<include name="language/**" />
 			</fileset>
 		</copy>
 
-		<delete file="${filebase}/build/babiooncaption.zip" failonerror="false" />
+		<if>
+			<isset property="vn" />
+			<then>
+				<property name="zipfile" value="${builddir}/${pname}-${vn}.zip"/>
+			</then>
+			<else>
+				<property name="zipfile" value="${builddir}/${pname}.zip"/>
+			</else>
+		</if>
+
+		<delete file="${zipfile}" failonerror="false" quiet="true"/>
 		<!-- zipfilename must match to projectname -->
-		<zip destfile="${filebase}/build/babioon-caption.zip" basedir="${bp_targetdir}" />
+		<zip destfile="${zipfile}" basedir="${targetdir}" />
 	</target>
 </project>
