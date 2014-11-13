@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="content">
-    <name>PLG_CONTENT_BABIOONCAPTION</name>
+    <name>Babioon - Caption</name>
    	<author>Robert Deutz</author>
    	<creationDate>August 2012</creationDate>
    	<copyright>Robert Deutz</copyright>
    	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
    	<authorEmail>contact@babioon.com</authorEmail>
    	<authorUrl>babioon.com</authorUrl>
-   	<version>2.0.0</version>
+   	<version>2.0.1</version>
    	<description>PLG_CONTENT_BABIOONCAPTION_XML_DESCRIPTION</description>
    	<files>
    		<filename plugin="babiooncaption">babiooncaption.php</filename>
